@@ -17,7 +17,12 @@ function Layout({ children }: { children: ReactNode }) {
         </nav>
       </header>
       <main>{children}</main>
-      <footer className="mx-auto max-w-5xl px-6 py-12 text-sm text-zinc-500">© {new Date().getFullYear()} Othertime</footer>
+      <footer className="mx-auto flex max-w-5xl flex-wrap items-center gap-x-5 gap-y-2 px-6 py-12 text-sm text-zinc-500">
+        <span>© {new Date().getFullYear()} Othertime</span>
+        <a className="transition hover:text-zinc-300" href="/privacy">Privacy</a>
+        <a className="transition hover:text-zinc-300" href="/terms">Terms</a>
+        <a className="transition hover:text-zinc-300" href="/delete-account">Delete account</a>
+      </footer>
     </div>
   );
 }
@@ -73,6 +78,20 @@ function Terms() { return <LegalPage title="Terms of service">
   <LegalSection title="Contact"><p>For support, email <a className="font-medium text-purple-300 underline decoration-purple-300/40 underline-offset-4 hover:text-purple-200" href="mailto:othertime.app@proton.me">othertime.app@proton.me</a>.</p></LegalSection>
 </LegalPage>; }
 
+function DeleteAccount() { return <LegalPage title="Delete your Othertime account">
+  <LegalSection title="Delete your account in the app">
+    <p>Open Othertime, go to <strong className="font-semibold text-white">Settings</strong>, scroll to the bottom, and choose <strong className="font-semibold text-white">Delete account</strong>. Confirm the deletion when prompted.</p>
+    <p>Your account deletion request is processed from inside the app. You may need to sign in first.</p>
+  </LegalSection>
+  <LegalSection title="What we delete">
+    <p>We delete your account and associated personal data, including your profile, profile picture, group memberships, group activity and messages, locked-app selections, push-notification tokens, and stored unlock history associated with your account.</p>
+  </LegalSection>
+  <LegalSection title="Retention">
+    <p>Some copies may remain briefly in encrypted backups or service logs while they expire through normal retention processes. We do not retain your account for advertising or sell your personal information.</p>
+  </LegalSection>
+  <LegalSection title="Need help?"><p>If you cannot access the app, email <a className="font-medium text-purple-300 underline decoration-purple-300/40 underline-offset-4 hover:text-purple-200" href="mailto:othertime.app@proton.me?subject=Othertime%20account%20deletion">othertime.app@proton.me</a> from the email address associated with your account and request deletion.</p></LegalSection>
+</LegalPage>; }
+
 function Join() {
   const code = new URLSearchParams(window.location.search).get("code")?.trim() ?? "";
   const appUrl = code ? `othertime://join?code=${encodeURIComponent(code)}` : "othertime://";
@@ -92,4 +111,4 @@ function Join() {
 }
 
 const path = window.location.pathname.replace(/\/$/, "") || "/";
-createRoot(document.getElementById("root")!).render(<StrictMode>{path === "/privacy" ? <Privacy /> : path === "/terms" ? <Terms /> : path === "/join" ? <Join /> : <Home />}</StrictMode>);
+createRoot(document.getElementById("root")!).render(<StrictMode>{path === "/privacy" ? <Privacy /> : path === "/terms" ? <Terms /> : path === "/delete-account" ? <DeleteAccount /> : path === "/join" ? <Join /> : <Home />}</StrictMode>);
