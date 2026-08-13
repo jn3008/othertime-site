@@ -73,5 +73,23 @@ function Terms() { return <LegalPage title="Terms of service">
   <LegalSection title="Contact"><p>For support, email <a className="font-medium text-purple-300 underline decoration-purple-300/40 underline-offset-4 hover:text-purple-200" href="mailto:othertime.app@proton.me">othertime.app@proton.me</a>.</p></LegalSection>
 </LegalPage>; }
 
+function Join() {
+  const code = new URLSearchParams(window.location.search).get("code")?.trim() ?? "";
+  const appUrl = code ? `othertime://join?code=${encodeURIComponent(code)}` : "othertime://";
+  return <Layout><section className="mx-auto max-w-xl px-6 py-20 sm:py-28">
+    <p className="text-xs font-semibold uppercase tracking-[0.28em] text-purple-300">Othertime invitation</p>
+    <h1 className="mt-5 text-4xl font-semibold tracking-tight text-white sm:text-5xl">Join a group</h1>
+    {code ? <>
+      <p className="mt-5 text-lg leading-8 text-zinc-400">You’ve been invited to join a shared time pot on Othertime.</p>
+      <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">Invite code</p>
+        <p className="mt-2 break-all font-mono text-lg text-white">{code}</p>
+      </div>
+      <a className="mt-8 flex items-center justify-center rounded-2xl bg-white px-5 py-4 text-center font-semibold text-[#24152a] transition hover:bg-purple-100" href={appUrl}>Open in Othertime</a>
+      <p className="mt-5 text-center text-sm leading-6 text-zinc-500">If the app doesn’t open, install Othertime first, then return to this page and tap the button again.</p>
+    </> : <p className="mt-5 rounded-2xl border border-red-300/20 bg-red-400/10 p-5 text-zinc-300">This invite link is missing its code. Ask the group member who invited you to send a new link.</p>}
+  </section></Layout>;
+}
+
 const path = window.location.pathname.replace(/\/$/, "") || "/";
-createRoot(document.getElementById("root")!).render(<StrictMode>{path === "/privacy" ? <Privacy /> : path === "/terms" ? <Terms /> : <Home />}</StrictMode>);
+createRoot(document.getElementById("root")!).render(<StrictMode>{path === "/privacy" ? <Privacy /> : path === "/terms" ? <Terms /> : path === "/join" ? <Join /> : <Home />}</StrictMode>);
