@@ -63,34 +63,43 @@ function LegalSection({ title, children }: { title: string; children: ReactNode 
   </section>;
 }
 
-function Privacy() { return <LegalPage title="Privacy policy">
-  <LegalSection title="Information we collect"><p>Othertime collects your sign-in email and account identifier, group memberships and activity, the apps you choose to lock, your display name and optional profile picture, and a device push-notification token when you enable notifications.</p></LegalSection>
-  <LegalSection title="What we do not collect"><p>Othertime does not collect or send a history of which apps you used or when you used them. We store the apps you choose to lock by default and the shared-pot unlock sessions needed to operate the service, such as when an unlock started, its maximum duration, and when it ended. App blocking is performed on your device.</p></LegalSection>
-  <LegalSection title="How we use information"><p>We use this information to provide shared time pots, app locking, group activity, authentication, and notifications. We do not sell personal information.</p></LegalSection>
-  <LegalSection title="Storage and service providers"><p>Account and application data is stored using Supabase. Push notifications may be delivered through Expo and Firebase services.</p></LegalSection>
-  <LegalSection title="Your choices"><p>You can update your profile, remove your profile picture, leave groups, sign out, or request deletion of your account from within Othertime.</p></LegalSection>
-  <LegalSection title="Contact"><p>For privacy questions, email <a className="font-medium text-purple-300 underline decoration-purple-300/40 underline-offset-4 hover:text-purple-200" href="mailto:othertime.app@proton.me">othertime.app@proton.me</a>.</p></LegalSection>
-</LegalPage>; }
-function Terms() { return <LegalPage title="Terms of service">
-  <LegalSection title="Using Othertime"><p>Use Othertime responsibly and only with devices and accounts you are authorised to control. Do not misuse group invitations, notifications, or app-locking features.</p></LegalSection>
-  <LegalSection title="Shared groups"><p>Group activity is visible to group members. You are responsible for the content you post and for protecting your sign-in credentials.</p></LegalSection>
-  <LegalSection title="Availability"><p>Othertime is provided as an evolving service. Features may change, and we do not guarantee uninterrupted availability.</p></LegalSection>
-  <LegalSection title="Contact"><p>For support, email <a className="font-medium text-purple-300 underline decoration-purple-300/40 underline-offset-4 hover:text-purple-200" href="mailto:othertime.app@proton.me">othertime.app@proton.me</a>.</p></LegalSection>
-</LegalPage>; }
+function Privacy() {
+  return <LegalPage title="Privacy policy">
+    <LegalSection title="Information we collect"><p>Othertime collects your sign-in email and account identifier, group memberships and activity, the apps you choose to lock, your display name and optional profile picture, and a device push-notification token when you enable notifications.</p></LegalSection>
+    <LegalSection title="What we do not collect"><p>Othertime does not collect or send a history of which apps you used or when you used them. We store the apps you choose to lock by default and the shared-pot unlock sessions needed to operate the service, such as when an unlock started, its maximum duration, and when it ended. App blocking is performed on your device.</p></LegalSection>
+    <LegalSection title="How we use information"><p>We use this information to provide shared time pots, app locking, group activity, authentication, and notifications. We do not sell personal information.</p></LegalSection>
+    <LegalSection title="Storage and service providers"><p>Account and application data is stored using Supabase. Push notifications may be delivered through Expo and Firebase services.</p></LegalSection>
+    <LegalSection title="Your choices"><p>You can update your profile, remove your profile picture, leave groups, sign out, or request deletion of your account from within Othertime.</p></LegalSection>
+    <LegalSection title="Contact"><p>For privacy questions, email <a className="font-medium text-purple-300 underline decoration-purple-300/40 underline-offset-4 hover:text-purple-200" href="mailto:othertime.app@proton.me">othertime.app@proton.me</a>.</p></LegalSection>
+  </LegalPage>;
+}
+function Terms() {
+  return <LegalPage title="Terms of service">
+    <LegalSection title="Using Othertime"><p>Use Othertime responsibly and only with devices and accounts you are authorised to control. Do not misuse group invitations, notifications, or app-locking features.</p></LegalSection>
+    <LegalSection title="Shared groups"><p>Group activity is visible to group members. You are responsible for the content you post and for protecting your sign-in credentials.</p></LegalSection>
+    <LegalSection title="Availability"><p>Othertime is provided as an evolving service. Features may change, and we do not guarantee uninterrupted availability.</p></LegalSection>
+    <LegalSection title="Contact"><p>For support, email <a className="font-medium text-purple-300 underline decoration-purple-300/40 underline-offset-4 hover:text-purple-200" href="mailto:othertime.app@proton.me">othertime.app@proton.me</a>.</p></LegalSection>
+  </LegalPage>;
+}
 
-function DeleteAccount() { return <LegalPage title="Delete your Othertime account">
-  <LegalSection title="Delete your account in the app">
-    <p>Open Othertime, go to <strong className="font-semibold text-white">Settings</strong>, scroll to the bottom, and choose <strong className="font-semibold text-white">Delete account</strong>. Confirm the deletion when prompted.</p>
-    <p>Your account deletion request is processed from inside the app. You may need to sign in first.</p>
-  </LegalSection>
-  <LegalSection title="What we delete">
-    <p>We delete your account and associated personal data, including your profile, profile picture, group memberships, group activity and messages, locked-app selections, push-notification tokens, and stored unlock history associated with your account.</p>
-  </LegalSection>
-  <LegalSection title="Retention">
-    <p>Some copies may remain briefly in encrypted backups or service logs while they expire through normal retention processes. We do not retain your account for advertising or sell your personal information.</p>
-  </LegalSection>
-  <LegalSection title="Need help?"><p>If you cannot access the app, email <a className="font-medium text-purple-300 underline decoration-purple-300/40 underline-offset-4 hover:text-purple-200" href="mailto:othertime.app@proton.me?subject=Othertime%20account%20deletion">othertime.app@proton.me</a> from the email address associated with your account and request deletion.</p></LegalSection>
-</LegalPage>; }
+function DeleteAccount() {
+  return <LegalPage title="Delete your Othertime account">
+    <LegalSection title="Delete your account in the app">
+      <p>Open Othertime, go to <strong className="font-semibold text-white">Settings</strong>, scroll to the bottom, and choose <strong className="font-semibold text-white">Delete account</strong>. Confirm the deletion when prompted.</p>
+      <p>Your account deletion request is processed from inside the app. You may need to sign in first.</p>
+    </LegalSection>
+    <LegalSection title="Request deletion of selected data">
+      <p>You can remove some data without deleting your account by using the relevant settings in Othertime. For example, remove your profile picture, leave a group, or remove your locked-app selections. For any other partial deletion request, email <a className="font-medium text-purple-300 underline decoration-purple-300/40 underline-offset-4 hover:text-purple-200" href="mailto:othertime.app@proton.me?subject=Othertime%20data%20deletion">othertime.app@proton.me</a> and describe the data you want removed.</p>
+    </LegalSection>
+    <LegalSection title="What we delete">
+      <p>We delete your account and associated personal data, including your profile, profile picture, group memberships, group activity and messages, locked-app selections, push-notification tokens, and stored unlock history associated with your account.</p>
+    </LegalSection>
+    <LegalSection title="Retention">
+      <p>Some copies may remain briefly in encrypted backups or service logs while they expire through normal retention processes. We do not retain your account for advertising or sell your personal information.</p>
+    </LegalSection>
+    <LegalSection title="Need help?"><p>If you cannot access the app, email <a className="font-medium text-purple-300 underline decoration-purple-300/40 underline-offset-4 hover:text-purple-200" href="mailto:othertime.app@proton.me?subject=Othertime%20account%20deletion">othertime.app@proton.me</a> from the email address associated with your account and request deletion.</p></LegalSection>
+  </LegalPage>;
+}
 
 function Join() {
   const code = new URLSearchParams(window.location.search).get("code")?.trim() ?? "";
