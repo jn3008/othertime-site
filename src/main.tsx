@@ -1,4 +1,4 @@
-import { StrictMode, type ReactNode } from "react";
+import { StrictMode, type FormEvent, type ReactNode, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 
@@ -119,5 +119,65 @@ function Join() {
   </section></Layout>;
 }
 
+function ResetPassword() {
+  const tokens = useMemo(() => {
+    const hash = new URLSearchParams(window.location.hash.replace(/^#/, ""));
+    return {
+      accessToken: hash.get("access_token") ?? "",
+      refreshToken: hash.get("refresh_token") ?? "",
+      type: hash.get("type") ?? "",
+    };
+  }, []);
+  const [password, setPassword] = useState("");
+  const [confirmation, setConfirmation] = useState("");
+  const [status, setStatus] = useState<"idle" | "saving" | "success" | "error">("idle");
+  const [message, setMessage] = useState("");
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string | undefined;
+  const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string | undefined;
+
+  const openInApp = () => {
+    const params = new URLSearchParams({ access_token: tokens.accessToken, refresh_token: tokens.refreshToken, type: "recovery" });
+    window.location.href = `othertime://auth/callback#${params.toString()}`;
+  };
+
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (password.length < 6) { setStatus("error"); setMessage("Your password must be at least 6 characters long."); return; }
+    if (password !== confirmation) { setStatus("error"); setMessage("The passwords do not match."); return; }
+    if (!tokens.accessToken || tokens.type !== "recovery" || !supabaseUrl || !supabaseKey) {
+      setStatus("error"); setMessage("This reset link is invalid or has expired. Request a new one from Othertime."); return;
+    }
+    setStatus("saving");
+    try {
+      const response = await fetch(`${supabaseUrl}/auth/v1/user`, {
+        method: "PUT",
+        headers: { apikey: supabaseKey, Authorization: `Bearer ${tokens.accessToken}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+      if (!response.ok) throw new Error("Password update failed");
+      setStatus("success");
+      setMessage("Your password has been updated. You can now return to Othertime and sign in.");
+    } catch {
+      setStatus("error");
+      setMessage("This reset link is invalid or has expired. Request a new one from Othertime.");
+    }
+  }
+
+  return <Layout><section className="mx-auto max-w-xl px-6 py-20 sm:py-28">
+    <p className="text-xs font-semibold uppercase tracking-[0.28em] text-purple-300">Othertime account</p>
+    <h1 className="mt-5 text-4xl font-semibold tracking-tight text-white sm:text-5xl">Reset your password</h1>
+    {status === "success" ? <p className="mt-6 rounded-2xl border border-green-300/20 bg-green-400/10 p-5 text-lg leading-8 text-zinc-200">{message}</p> : <>
+      <p className="mt-5 text-lg leading-8 text-zinc-400">Choose a new password for your Othertime account.</p>
+      <form className="mt-8 space-y-4" onSubmit={submit}>
+        <input className="w-full rounded-2xl border border-white/15 bg-white/[0.05] px-4 py-4 text-white outline-none focus:border-purple-300" minLength={6} onChange={(event) => setPassword(event.target.value)} placeholder="New password" type="password" value={password} />
+        <input className="w-full rounded-2xl border border-white/15 bg-white/[0.05] px-4 py-4 text-white outline-none focus:border-purple-300" minLength={6} onChange={(event) => setConfirmation(event.target.value)} placeholder="Confirm new password" type="password" value={confirmation} />
+        <button className="w-full rounded-2xl bg-white px-5 py-4 font-semibold text-[#24152a] disabled:opacity-50" disabled={status === "saving"} type="submit">{status === "saving" ? "Updating…" : "Update password"}</button>
+      </form>
+      {message && status === "error" && <p className="mt-4 rounded-2xl border border-red-300/20 bg-red-400/10 p-4 text-zinc-300">{message}</p>}
+      {tokens.accessToken && <button className="mt-5 w-full rounded-2xl border border-white/15 px-5 py-4 font-semibold text-white" onClick={openInApp} type="button">Open in Othertime</button>}
+    </>}
+  </section></Layout>;
+}
+
 const path = window.location.pathname.replace(/\/$/, "") || "/";
-createRoot(document.getElementById("root")!).render(<StrictMode>{path === "/privacy" ? <Privacy /> : path === "/terms" ? <Terms /> : path === "/delete-account" ? <DeleteAccount /> : path === "/join" ? <Join /> : <Home />}</StrictMode>);
+createRoot(document.getElementById("root")!).render(<StrictMode>{path === "/privacy" ? <Privacy /> : path === "/terms" ? <Terms /> : path === "/delete-account" ? <DeleteAccount /> : path === "/join" ? <Join /> : path === "/reset-password" ? <ResetPassword /> : <Home />}</StrictMode>);
