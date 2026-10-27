@@ -4,4 +4,36 @@
   --font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
 }
 
-body { margin: 0; }
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+.homepage-preview-shell {
+  position: relative;
+  border-radius: 50px;
+  box-shadow: 0 0 36px rgb(17 24 39 / 22%);
+}
+
+.homepage-preview {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: inherit;
+}
