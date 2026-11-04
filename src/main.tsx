@@ -36,12 +36,40 @@ function Home() {
         <p className="mt-6 max-w-xl text-base leading-7 text-neutral-600 sm:text-lg sm:leading-8">
           Choose the apps to lock, share a time pot with your group, and keep each other honest when it’s time to put your phone down.
         </p>
+        <div aria-label="Download Othertime" className="mt-8 flex flex-wrap gap-3">
+          <a
+            aria-label="Download Othertime from Google Play"
+            className="inline-flex h-14 w-[189px] items-center justify-center rounded-lg transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950"
+            href="https://play.google.com/store/apps/details?id=com.josefff.othertime"
+            rel="noreferrer"
+            target="_blank"
+          >
+            <img alt="Get it on Google Play" className="h-full w-full" src="/google-play-badge-en.svg" />
+          </a>
+          <div
+            aria-disabled="true"
+            aria-label="Apple App Store, coming soon"
+            className="inline-flex h-14 w-[189px] items-center justify-center gap-3 rounded-[7px] border border-neutral-300 bg-white text-neutral-500"
+          >
+            <AppleIcon />
+            <span className="flex flex-col leading-tight">
+              <span className="text-[10px] font-medium">Coming soon</span>
+              <span className="mt-0.5 text-base font-semibold text-neutral-700">App Store</span>
+            </span>
+          </div>
+        </div>
       </div>
       <figure className="homepage-preview-shell mx-auto m-0 w-full max-w-[280px]">
         <img className="homepage-preview block h-auto w-full rounded-[50px]!" src="/homepage.png" alt="Othertime home screen showing a group’s shared time, app unlock activity, and members" />
       </figure>
     </section>
   </Layout>;
+}
+
+function AppleIcon() {
+  return <svg aria-hidden="true" className="h-7 w-7 shrink-0 fill-current" viewBox="0 0 24 24">
+    <path d="M16.7 12.8c0-2.2 1.8-3.3 1.9-3.4a4.2 4.2 0 0 0-3.3-1.8c-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-3-.8a4.5 4.5 0 0 0-3.8 2.3c-1.6 2.8-.4 7 1.1 9.3.8 1.1 1.6 2.4 2.8 2.3 1.1 0 1.6-.7 3-.7s1.9.7 3 .7c1.2 0 2-1.1 2.7-2.3a9.9 9.9 0 0 0 1.2-2.6 4 4 0 0 1-2.2-3.8ZM14.5 6.1A4 4 0 0 0 15.4 3a4.2 4.2 0 0 0-2.8 1.5 3.8 3.8 0 0 0-1 3 3.5 3.5 0 0 0 2.9-1.4Z" />
+  </svg>;
 }
 
 function LegalPage({ title, children }: { title: string; children: ReactNode }) {
