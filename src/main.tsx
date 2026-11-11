@@ -11,6 +11,7 @@ function Layout({ children }: { children: ReactNode }) {
           <span>Othertime</span>
         </a>
         <nav className="flex items-center gap-6 text-sm text-neutral-500" aria-label="Main navigation">
+          <a className="transition hover:text-neutral-950" href="/support">Support</a>
           <a className="transition hover:text-neutral-950" href="/privacy">Privacy</a>
           <a className="transition hover:text-neutral-950" href="/terms">Terms</a>
         </nav>
@@ -18,6 +19,7 @@ function Layout({ children }: { children: ReactNode }) {
       <main className="flex-1">{children}</main>
       <footer className="mx-auto flex w-full max-w-5xl flex-wrap items-center gap-x-6 gap-y-3 border-t border-neutral-200 px-6 py-7 text-sm text-neutral-500 sm:px-8">
         <span>© {new Date().getFullYear()} Othertime</span>
+        <a className="transition hover:text-neutral-950" href="/support">Support</a>
         <a className="transition hover:text-neutral-950" href="/privacy">Privacy</a>
         <a className="transition hover:text-neutral-950" href="/terms">Terms</a>
         <a className="transition hover:text-neutral-950" href="/delete-account">Delete account</a>
@@ -75,9 +77,9 @@ function AppleIcon() {
 function LegalPage({ title, children }: { title: string; children: ReactNode }) {
   return <Layout><article className="mx-auto max-w-3xl px-6 py-14 sm:py-20">
     <div className="border-b border-neutral-200 pb-10">
-      <p className="text-sm font-medium text-neutral-500">Othertime · Legal</p>
+      {/* <p className="text-sm font-medium text-neutral-500">Othertime · Legal</p> */}
       <h1 className="mt-5 text-4xl font-semibold tracking-tight text-neutral-950 sm:text-6xl">{title}</h1>
-      <p className="mt-5 text-sm text-neutral-500">Last updated <time dateTime="2026-08-01">August 2026</time></p>
+      {/* <p className="mt-5 text-sm text-neutral-500">Last updated <time dateTime="2026-08-01">August 2026</time></p> */}
     </div>
     <div className="mt-10 space-y-10 text-[1.05rem] leading-8 text-neutral-600">{children}</div>
   </article></Layout>;
@@ -106,6 +108,15 @@ function Terms() {
     <LegalSection title="Shared groups"><p>Group activity is visible to group members. You are responsible for the content you post and for protecting your sign-in credentials.</p></LegalSection>
     <LegalSection title="Availability"><p>Othertime is provided as an evolving service. Features may change, and we do not guarantee uninterrupted availability.</p></LegalSection>
     <LegalSection title="Contact"><p>For support, email <a className="font-medium text-neutral-950 underline decoration-neutral-300 underline-offset-4 hover:decoration-neutral-950" href="mailto:othertime.app@proton.me">othertime.app@proton.me</a>.</p></LegalSection>
+  </LegalPage>;
+}
+
+function Support() {
+  return <LegalPage title="Support">
+    <LegalSection title="Contact Othertime support">
+      <p>Need help with Othertime or have a question? Email us and we’ll get back to you.</p>
+      <p><a className="font-medium text-neutral-950 underline decoration-neutral-300 underline-offset-4 hover:decoration-neutral-950" href="mailto:othertime.app@proton.me">othertime.app@proton.me</a></p>
+    </LegalSection>
   </LegalPage>;
 }
 
@@ -207,4 +218,4 @@ function ResetPassword() {
 }
 
 const path = window.location.pathname.replace(/\/$/, "") || "/";
-createRoot(document.getElementById("root")!).render(<StrictMode>{path === "/privacy" ? <Privacy /> : path === "/terms" ? <Terms /> : path === "/delete-account" ? <DeleteAccount /> : path === "/join" ? <Join /> : path === "/reset-password" ? <ResetPassword /> : <Home />}</StrictMode>);
+createRoot(document.getElementById("root")!).render(<StrictMode>{path === "/support" ? <Support /> : path === "/privacy" ? <Privacy /> : path === "/terms" ? <Terms /> : path === "/delete-account" ? <DeleteAccount /> : path === "/join" ? <Join /> : path === "/reset-password" ? <ResetPassword /> : <Home />}</StrictMode>);
