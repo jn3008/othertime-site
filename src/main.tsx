@@ -10,7 +10,7 @@ function Layout({ children }: { children: ReactNode }) {
           <img alt="" className="h-12 w-12 object-contain" src="/othertime-favicon.png" />
           <span>Othertime</span>
         </a>
-        <nav className="flex items-center gap-6 text-sm text-neutral-500" aria-label="Main navigation">
+        <nav className="hidden items-center gap-6 text-sm text-neutral-500 sm:flex" aria-label="Main navigation">
           <a className="transition hover:text-neutral-950" href="/support">Support</a>
           <a className="transition hover:text-neutral-950" href="/privacy">Privacy</a>
           <a className="transition hover:text-neutral-950" href="/terms">Terms</a>
